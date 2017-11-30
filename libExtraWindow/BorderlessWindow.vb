@@ -143,7 +143,7 @@ Namespace Global.Nukepayload2.UI.Xaml
         Public Shared ReadOnly DpiAwarenessProperty As DependencyProperty =
                                DependencyProperty.Register(NameOf(DpiAwareness),
                                GetType(ProcessDpiAwareness), GetType(BorderlessWindow),
-                               New PropertyMetadata(Nothing,
+                               New PropertyMetadata(ProcessDpiAwareness.SystemDpiAware,
                                                     Sub(s, e)
                                                         Dim this = DirectCast(s, BorderlessWindow)
                                                         this.perMonDPIHelper.DpiAwareness = e.NewValue
