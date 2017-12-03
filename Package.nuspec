@@ -5,10 +5,17 @@
         <version>1.0.0-beta2</version>
         <authors>Nukepayload2</authors>
         <owners>Nukepayload2</owners>
+        <projectUrl>https://github.com/Nukepayload2/WPF_Borderless_Window</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>WPF Borderless Window</description>
-        <releaseNotes />
+        <description>Provides a borderless, acrylic background and Per-Monitor DPI Awarded WPF Window. 
+Use BorderlessWindow instead of Window. 
+Enable Per-Monitor DPI Awareness by setting DpiAwareness. 
+Enable Acrylic background via the WindowCompositionProperties extension property.</description>
+        <summary>WPF Borderless and Per-Monitor Awared Window.</summary>
+        <releaseNotes>The second prerelease.
+For more information, please visit https://github.com/Nukepayload2/WPF_Borderless_Window</releaseNotes>
         <copyright>Copyright 2014-2017 Nukepayload2</copyright>
+        <language>en-US</language>
         <tags>WPF</tags>
     </metadata>
     <files>
