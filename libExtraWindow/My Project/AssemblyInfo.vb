@@ -12,10 +12,10 @@ Imports System.Windows
 ' 查看程序集特性的值
 
 <Assembly: AssemblyTitle("libExtraWindow")>
-<Assembly: AssemblyDescription("WPF窗体拓展")>
+<Assembly: AssemblyDescription("WPF 窗体拓展")>
 <Assembly: AssemblyCompany("Nukepayload2")>
 <Assembly: AssemblyProduct("libExtraWindow")>
-<Assembly: AssemblyCopyright("Copyright © Nukepayload2 2014-2015")>
+<Assembly: AssemblyCopyright("Copyright 2014-2017 Nukepayload2")>
 <Assembly: AssemblyTrademark("Nukepayload2")>
 <Assembly: ComVisible(false)>
 
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 方法是按如下所示使用“*”: 
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.1.0.0")>
-<Assembly: AssemblyFileVersion("1.1.0.0")>
+<Assembly: AssemblyVersion("1.2.1.0")>
+<Assembly: AssemblyFileVersion("1.2.1.0")>

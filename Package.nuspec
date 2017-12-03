@@ -1,17 +1,19 @@
-<?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>Nukepayload2.UI.WPFBorderlessWindow</id>
-    <version>1.0.0-beta</version>
-    <authors>Nukepayload2</authors>
-    <owners>Nukepayload2</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>WPF Borderless Window</description>
-    <releaseNotes></releaseNotes>
-    <copyright>Copyright 2014-2017 Nukepayload2</copyright>
-    <tags>WPF</tags>
-  </metadata>
-  <files>
-    <file src=".\libExtraWindow\bin\Release\Nukepayload2.UI.Win32.*"  target="lib\net4-Client"/>
-  </files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>Nukepayload2.UI.WPFBorderlessWindow</id>
+        <version>1.0.0-beta2</version>
+        <authors>Nukepayload2</authors>
+        <owners>Nukepayload2</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>WPF Borderless Window</description>
+        <releaseNotes />
+        <copyright>Copyright 2014-2017 Nukepayload2</copyright>
+        <tags>WPF</tags>
+    </metadata>
+    <files>
+        <file src=".\libExtraWindow\bin\Release\Nukepayload2.UI.Win32.dll" target="lib\net4-Client\Nukepayload2.UI.Win32.dll" />
+        <file src=".\libExtraWindow\bin\Release\Nukepayload2.UI.Win32.pdb" target="lib\net4-Client\Nukepayload2.UI.Win32.pdb" />
+        <file src=".\libExtraWindow\bin\Release\Nukepayload2.UI.Win32.xml" target="lib\net4-Client\Nukepayload2.UI.Win32.xml" />
+    </files>
 </package>
