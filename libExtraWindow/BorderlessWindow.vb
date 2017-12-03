@@ -147,11 +147,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                                                     Sub(s, e)
                                                         Dim this = DirectCast(s, BorderlessWindow)
                                                         this.perMonDPIHelper.DpiAwareness = e.NewValue
-                                                    End Sub,
-                                                    Function(s, e)
-                                                        Dim this = DirectCast(s, BorderlessWindow)
-                                                        Return this.perMonDPIHelper.DpiAwareness
-                                                    End Function))
+                                                    End Sub))
 
         Dim hWnd As IntPtr
         Public ReadOnly Property Handle As IntPtr = hWnd

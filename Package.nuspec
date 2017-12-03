@@ -10,7 +10,7 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014-2017 Nukepayload2</copyright>
     <tags>WPF</tags>
-  </metadata>    
+  </metadata>
   <files>
     <file src=".\libExtraWindow\bin\Release\Nukepayload2.UI.Win32.*"  target="lib\net4-Client"/>
   </files>
