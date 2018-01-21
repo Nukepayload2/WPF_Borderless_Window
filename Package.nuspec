@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Nukepayload2.UI.WPFBorderlessWindow</id>
-        <version>1.0.0-beta2</version>
+        <version>1.0.0-beta3</version>
         <authors>Nukepayload2</authors>
         <owners>Nukepayload2</owners>
         <projectUrl>https://github.com/Nukepayload2/WPF_Borderless_Window</projectUrl>
@@ -10,7 +10,8 @@
         <description>Provides a borderless, acrylic background and Per-Monitor DPI Awarded WPF Window. 
 Use BorderlessWindow instead of Window. 
 Enable Per-Monitor DPI Awareness by setting DpiAwareness. 
-Enable Acrylic background via the WindowCompositionProperties extension property.</description>
+Enable Acrylic background via the WindowCompositionProperties extension property.
+Fallback on legacy Windows such as Windows 7 sp1</description>
         <summary>WPF Borderless and Per-Monitor Awared Window.</summary>
         <releaseNotes>The second prerelease.
 For more information, please visit https://github.com/Nukepayload2/WPF_Borderless_Window</releaseNotes>

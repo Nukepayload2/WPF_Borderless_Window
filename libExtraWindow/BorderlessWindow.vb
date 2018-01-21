@@ -132,7 +132,7 @@ Namespace Global.Nukepayload2.UI.Xaml
             End If
         End Sub
 
-        Public Property DpiAwareness As ProcessDpiAwareness
+        Public Property DpiAwareness As ProcessDpiAwareness?
             Get
                 Return GetValue(DpiAwarenessProperty)
             End Get
@@ -142,7 +142,7 @@ Namespace Global.Nukepayload2.UI.Xaml
         End Property
         Public Shared ReadOnly DpiAwarenessProperty As DependencyProperty =
                                DependencyProperty.Register(NameOf(DpiAwareness),
-                               GetType(ProcessDpiAwareness), GetType(BorderlessWindow),
+                               GetType(ProcessDpiAwareness?), GetType(BorderlessWindow),
                                New PropertyMetadata(New PerMonitorDpiAwareHelper().DpiAwareness,
                                                     Sub(s, e)
                                                         Dim this = DirectCast(s, BorderlessWindow)
@@ -157,7 +157,9 @@ Namespace Global.Nukepayload2.UI.Xaml
         Private Sub NoBorderWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
             hWnd = New WindowInteropHelper(Me).Handle
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
-            SetScaleTransform(dpi.X)
+            If dpi IsNot Nothing Then
+                SetScaleTransform(dpi.Value.X)
+            End If
             SetWindowLong(New WindowInteropHelper(Me).Handle, -16, &H16030000)
             SetWindowLong(New WindowInteropHelper(Me).Handle, -20, &H40000)
         End Sub
