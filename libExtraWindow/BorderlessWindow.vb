@@ -158,7 +158,8 @@ Namespace Global.Nukepayload2.UI.Xaml
             hWnd = New WindowInteropHelper(Me).Handle
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             SetScaleTransform(dpi.X)
-            SetWindowLong(New WindowInteropHelper(Me).Handle, -16, 369295360)
+            SetWindowLong(New WindowInteropHelper(Me).Handle, -16, &H16030000)
+            SetWindowLong(New WindowInteropHelper(Me).Handle, -20, &H40000)
         End Sub
     End Class
 
