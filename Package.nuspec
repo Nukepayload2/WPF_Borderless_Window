@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Nukepayload2.UI.WPFBorderlessWindow</id>
-        <version>1.0.0-beta3</version>
+        <version>1.0.0-beta4</version>
         <authors>Nukepayload2</authors>
         <owners>Nukepayload2</owners>
         <projectUrl>https://github.com/Nukepayload2/WPF_Borderless_Window</projectUrl>
@@ -13,9 +13,9 @@ Enable Per-Monitor DPI Awareness by setting DpiAwareness.
 Enable Acrylic background via the WindowCompositionProperties extension property.
 Fallback on legacy Windows such as Windows 7 sp1</description>
         <summary>WPF Borderless and Per-Monitor Awared Window.</summary>
-        <releaseNotes>The second prerelease.
+        <releaseNotes>Added a new blur effect fall back logic.
 For more information, please visit https://github.com/Nukepayload2/WPF_Borderless_Window</releaseNotes>
-        <copyright>Copyright 2014-2017 Nukepayload2</copyright>
+        <copyright>Copyright 2014-2018 Nukepayload2</copyright>
         <language>en-US</language>
         <tags>WPF</tags>
     </metadata>
