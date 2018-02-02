@@ -29,7 +29,7 @@
                 <DataTemplate>
                     <TextBlock VerticalAlignment="Center" 
                                SnapsToDevicePixels="True"
-                               FontFamily="Segoe MDL2 Assets"
+                               FontFamily="pack://application:,,,/Nukepayload2.UI.Win32;component/#Segoe MDL2 Assets"
                                FontSize="13"
                                Text="&#xE10a;"/>
                 </DataTemplate>

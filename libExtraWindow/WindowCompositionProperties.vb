@@ -8,7 +8,7 @@ Namespace Global.Nukepayload2.UI.Xaml
             If element Is Nothing Then
                 Throw New ArgumentNullException(NameOf(element))
             End If
-            Return CBool(element.GetValue(IsBlurredProperty))
+            Return element.GetValue(IsBlurredProperty)
         End Function
 
         Public Shared Sub SetIsBlurred(ByVal element As DependencyObject, ByVal value As Boolean)
@@ -17,6 +17,8 @@ Namespace Global.Nukepayload2.UI.Xaml
             End If
             element.SetValue(IsBlurredProperty, value)
         End Sub
+
+        Private Shared ReadOnly s_compositonFactory As New WindowCompositionFactory
 
         Public Shared ReadOnly IsBlurredProperty As _
                            DependencyProperty = DependencyProperty.RegisterAttached("IsBlurred",
@@ -27,23 +29,23 @@ Namespace Global.Nukepayload2.UI.Xaml
                                                     If wnd Is Nothing Then
                                                         Return
                                                     End If
-                                                    Dim composition As New WindowComposition
-                                                    composition.SetBlur(wnd, CBool(e.NewValue))
+                                                    Dim composition = s_compositonFactory.TryCreateForCurrentView
+                                                    composition?.TrySetBlur(wnd, e.NewValue)
                                                 End Sub,
                                                 Function(s, v)
                                                     Dim wnd = TryCast(s, Window)
                                                     If wnd Is Nothing Then
                                                         Return v
                                                     End If
-                                                    Dim composition As New WindowComposition
-                                                    Dim blurred = composition.IsBlurred(wnd)
+                                                    Dim composition = s_compositonFactory.TryCreateForCurrentView
+                                                    Dim blurred = composition?.IsBlurred(wnd)
                                                     Dim setBlurred = CBool(v)
                                                     If wnd.IsLoaded Then
-                                                        composition.SetBlur(wnd, setBlurred)
+                                                        composition?.TrySetBlur(wnd, setBlurred)
                                                     Else
                                                         Dim blur As RoutedEventHandler =
                                                                 Sub()
-                                                                    composition.SetBlur(wnd, setBlurred)
+                                                                    composition?.TrySetBlur(wnd, setBlurred)
                                                                     RemoveHandler wnd.Loaded, blur
                                                                 End Sub
                                                         AddHandler wnd.Loaded, blur

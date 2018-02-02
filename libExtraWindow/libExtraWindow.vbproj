@@ -127,7 +127,8 @@
     </Compile>
     <Compile Include="BorderlessWindow.vb" />
     <Compile Include="PerMonitorDpiAwareHelper.vb" />
-    <Compile Include="SafeNativeMethods.vb" />
+    <Compile Include="UnsafeNativeMethods.vb" />
+    <Compile Include="Win32ApiInformation.vb" />
     <Compile Include="WindowComposition.vb" />
     <Compile Include="WindowCompositionProperties.vb" />
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -140,6 +141,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
+    <Resource Include="segmdl2.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">

@@ -1,7 +1,4 @@
-﻿' 此文件使用 GPLv3 许可协议。协议内容：https://github.com/Nukepayload2/WPF_Borderless_Window/blob/master/libExtraWindow/License.txt
-' 额外权限授权申请方式：在百度贴吧, GitHub, 新浪微博 @Nukepayload2 或者发邮件到 1939357182@qq.com
-
-Friend Module Win32APIConstants
+﻿Friend Module Win32APIConstants
     Friend Const LOGPIXELSX = 88
     Friend Const LOGPIXELSY = 90
     Friend Const MONITOR_DEFAULTTONEAREST = 2
@@ -20,7 +17,68 @@ Friend Module NativeMethods
     Declare Function MonitorFromWindow Lib "user32" (hWnd As IntPtr, flags As Integer) As IntPtr
     Declare Function GetDpiForMonitor Lib "Shcore.dll" (hMonitor As IntPtr, dpiType As MonitorDpiType, ByRef dpiX As UInteger, ByRef dpiY As UInteger) As Integer
     Declare Function SetWindowPos Lib "user32.dll" (hWnd As IntPtr, hWndInsertAfter As IntPtr, X As Integer, Y As Integer, cx As Integer, cy As Integer, uFlags As Integer) As Boolean
+
+    Declare Function DwmExtendFrameIntoClientArea Lib "dwmapi.dll" (hwnd As IntPtr, ByRef pMarInset As DwmMargins) As Integer
+    Declare Function DwmIsCompositionEnabled Lib "dwmapi.dll" (ByRef enabledptr As Boolean) As Integer
+    Declare Function DwmEnableBlurBehindWindow Lib "dwmapi.dll" (Hwnd As IntPtr, ByRef Blur As DwmBlurBehind) As Integer
+
+    Declare Function SetWindowCompositionAttribute Lib "user32.dll" (hwnd As IntPtr, ByRef data As WindowCompositionAttributeData) As Boolean
+    Declare Function GetWindowCompositionAttribute Lib "user32.dll" (hwnd As IntPtr, ByRef data As WindowCompositionAttributeData) As Boolean
+
+    Declare Unicode Function LoadLibrary Lib "Kernel32.dll" Alias "LoadLibraryW" (fileName As String) As IntPtr
+    Declare Function GetProcAddress Lib "Kernel32.dll" (hModule As IntPtr, procName As String) As IntPtr
+
 End Module
+
+Friend Enum AccentState
+    Disabled
+    EnableGradient
+    EnableTransparentGradient
+    EnableBlurBehind
+    Invalid
+End Enum
+
+Friend Structure AccentPolicy
+    Dim AccentState As AccentState
+    Dim AccentFlags As Integer
+    Dim GradientColor As Integer
+    Dim AnimationId As Integer
+End Structure
+
+Friend Structure WindowCompositionAttributeData
+    Dim Attribute As WindowCompositionAttribute
+    Dim Data As IntPtr
+    Dim SizeOfData As Integer
+End Structure
+
+Friend Enum WindowCompositionAttribute
+    ' ...
+    WCA_ACCENT_POLICY = 19
+    ' ...
+End Enum
+
+Friend Structure DwmMargins
+    Public LeftWidth As Integer
+    Public RightWidth As Integer
+    Public TopHeight As Integer
+    Public BottomHeight As Integer
+End Structure
+
+Friend Structure DwmBlurBehind
+    Public Flags As Integer ' 3
+    Public Enable As Boolean ' 1
+    Public RgnBlur As IntPtr
+    Public Transition As Boolean '0
+    Public Shared Function Create(Optional flags As Integer = 3, Optional enable As Integer = 1, Optional rgnBlur As Integer = 0, Optional transition As Integer = 0) As DwmBlurBehind
+        Dim blu As New DwmBlurBehind With {
+            .Flags = flags,
+            .Enable = enable,
+            .RgnBlur = rgnBlur,
+            .Transition = transition
+        }
+        Return blu
+    End Function
+End Structure
 
 Friend Enum MonitorDpiType
     MDT_EFFECTIVE_DPI
