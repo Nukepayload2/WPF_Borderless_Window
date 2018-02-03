@@ -54,8 +54,8 @@ Namespace Global.Nukepayload2.UI.Xaml
             Select Case msg
                 Case WM_NCHITTEST
                     If WindowState = WindowState.Maximized Then Return IntPtr.Zero
-                    mousePoint.X = (lParam.ToInt32() And &HFFFF) * 96 / SystemDPI.X
-                    mousePoint.Y = (lParam.ToInt32() >> 16) * 96 / SystemDPI.Y
+                    mousePoint.X = (lParam.ToInt32() And &HFFFF)
+                    mousePoint.Y = (lParam.ToInt32() >> 16)
                     ' 左上  
                     If mousePoint.Y - Top <= AngleWidth AndAlso mousePoint.X - Left <= AngleWidth Then
                         handled = True
@@ -92,7 +92,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                         handled = False
                     End If
                 Case WM_DPICHANGED
-                    Dim newDpi As Integer = wParam.ToInt64 And &HFFFF
+                    Dim newDpi As Integer = wParam.ToInt32 And &HFFFF
                     Dim dpi = newDpi
                     Dim newRect As RECT
                     newRect = Marshal.PtrToStructure(lParam, GetType(RECT))
@@ -111,23 +111,15 @@ Namespace Global.Nukepayload2.UI.Xaml
                     transform = New ScaleTransform
                     rootElement.SetValue(Window.LayoutTransformProperty, transform)
                 End If
-                transform.ScaleX = dpi / SystemDPI.X
-                transform.ScaleY = dpi / SystemDPI.Y
+                transform.ScaleX = dpi / 96
+                transform.ScaleY = dpi / 96
             End If
-        End Sub
-
-        Public Sub UpdateSystemDPIValue()
-            Dim dc = GetDC(IntPtr.Zero)
-            _SystemDPI.X = GetDeviceCaps(dc, LOGPIXELSX)
-            _SystemDPI.Y = GetDeviceCaps(dc, LOGPIXELSY)
-            ReleaseDC(IntPtr.Zero, dc)
         End Sub
 
         Protected Overrides Sub OnSourceInitialized(e As EventArgs)
             MyBase.OnSourceInitialized(e)
             Dim hwndSource As HwndSource = DirectCast(PresentationSource.FromVisual(Me), HwndSource)
             If hwndSource IsNot Nothing Then
-                UpdateSystemDPIValue()
                 hwndSource.AddHook(New HwndSourceHook(AddressOf WndProc))
             End If
         End Sub
@@ -146,19 +138,23 @@ Namespace Global.Nukepayload2.UI.Xaml
                                New PropertyMetadata(New PerMonitorDpiAwareHelper().DpiAwareness,
                                                     Sub(s, e)
                                                         Dim this = DirectCast(s, BorderlessWindow)
-                                                        this.perMonDPIHelper.DpiAwareness = e.NewValue
+                                                        If e.NewValue IsNot Nothing Then
+                                                            this.perMonDPIHelper.DpiAwareness = e.NewValue
+                                                        End If
                                                     End Sub))
 
-        Dim hWnd As IntPtr
-        Public ReadOnly Property Handle As IntPtr = hWnd
         Dim perMonDPIHelper As New PerMonitorDpiAwareHelper
-        Dim _minWidth, _minHeight As Double
 
         Private Sub NoBorderWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-            hWnd = New WindowInteropHelper(Me).Handle
+            Dim hWnd = New WindowInteropHelper(Me).Handle
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             If dpi IsNot Nothing Then
                 SetScaleTransform(dpi.Value.X)
+                _SystemDPI = dpi.Value
+                Width *= SystemDPI.X / 96
+                Height *= SystemDPI.Y / 96
+            Else
+                _SystemDPI = New Vector(96, 96)
             End If
         End Sub
     End Class
