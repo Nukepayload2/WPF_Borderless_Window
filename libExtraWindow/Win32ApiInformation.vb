@@ -1,7 +1,12 @@
 ﻿Public Class Win32ApiInformation
 
     Public Shared Function IsAeroGlassApiPresent() As Boolean
-        Return IsProcedurePresent("dwmapi.dll", NameOf(DwmEnableBlurBehindWindow))
+        Return IsProcedurePresent("dwmapi.dll", NameOf(DwmEnableBlurBehindWindow)) AndAlso
+               Aggregate mdl As ProcessModule In Process.GetCurrentProcess.Modules
+               Where mdl.ModuleName.Equals("dwmapi.dll", StringComparison.OrdinalIgnoreCase)
+               Let ver = mdl.FileVersionInfo
+               Where ver.ProductMajorPart = 6 AndAlso ver.ProductMinorPart = 1
+               Into Any
     End Function
 
     Public Shared Function IsWindowAcrylicApiPresent() As Boolean
