@@ -160,8 +160,6 @@ Namespace Global.Nukepayload2.UI.Xaml
             If dpi IsNot Nothing Then
                 SetScaleTransform(dpi.Value.X)
             End If
-            SetWindowLong(New WindowInteropHelper(Me).Handle, -16, &H16030000)
-            SetWindowLong(New WindowInteropHelper(Me).Handle, -20, &H40000)
         End Sub
     End Class
 

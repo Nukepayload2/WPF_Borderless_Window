@@ -15,7 +15,7 @@ Class MainWindow
         Close()
     End Sub
 
-    Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+    Private Sub MainWindow_SourceInitialized(sender As Object, e As EventArgs) Handles Me.SourceInitialized
         Dim windowCompositionFactory As New WindowCompositionFactory
         If Win32ApiInformation.IsWindowAcrylicApiPresent OrElse Win32ApiInformation.IsAeroGlassApiPresent Then
             ' Enable blur effect
