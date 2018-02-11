@@ -153,6 +153,8 @@ Namespace Global.Nukepayload2.UI.Xaml
 
         Private Sub NoBorderWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
             Dim hWnd = New WindowInteropHelper(Me).Handle
+            SetWindowLong(hWnd, -16, &H16030000)
+            SetWindowLong(hWnd, -20, &H40000)
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             If dpi IsNot Nothing Then
                 SetScaleTransform(dpi.Value.X)
