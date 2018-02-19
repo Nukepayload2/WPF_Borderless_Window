@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.ComponentModel
+Imports System.Runtime.InteropServices
 Imports System.Windows.Interop
 
 Public Interface IWindowComposition
@@ -88,12 +89,17 @@ Public Class WindowComposition10
     Implements IWindowComposition
 
     Public Function TrySetBlur(window As Window, enable As Boolean) As Boolean Implements IWindowComposition.TrySetBlur
-        Dim windowHelper As New WindowInteropHelper(window)
+        Dim windowHandle = New WindowInteropHelper(window).Handle
 
+        Return TrySetBlur(windowHandle, enable, window.AllowsTransparency)
+    End Function
+
+    <EditorBrowsable(EditorBrowsableState.Advanced)>
+    Public Function TrySetBlur(windowHandle As IntPtr, enable As Boolean, isLayeredWindow As Boolean) As Boolean
         Dim accent As New AccentPolicy With {
             .AccentState = If(enable, AccentState.EnableBlurBehind,
-                                      If(window.AllowsTransparency, AccentState.EnableTransparentGradient,
-                                                                    AccentState.EnableGradient))
+                                      If(isLayeredWindow, AccentState.EnableTransparentGradient,
+                                                          AccentState.EnableGradient))
         }
 
         Dim hGc = GCHandle.Alloc(accent, GCHandleType.Pinned)
@@ -103,7 +109,7 @@ Public Class WindowComposition10
                 .SizeOfData = Marshal.SizeOf(accent),
                 .Data = hGc.AddrOfPinnedObject
             }
-            Return SetWindowCompositionAttribute(windowHelper.Handle, data)
+            Return SetWindowCompositionAttribute(windowHandle, data)
         Finally
             hGc.Free()
         End Try

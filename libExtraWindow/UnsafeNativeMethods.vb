@@ -93,7 +93,7 @@ Public Enum ProcessDpiAwareness
     PerMonitorDpiAware
 End Enum
 
-Friend Enum HitTest As Integer
+Friend Enum HitTest
     HTERROR = -2
     HTTRANSPARENT = -1
     HTNOWHERE = 0
@@ -128,3 +128,76 @@ End Enum
 Friend Structure RECT
     Dim Left, Top, Right, Bottom As Integer
 End Structure
+
+Public Enum NativeWindowStyle
+    Overlapped = &H0
+    Popup = &H80000000
+    Child = &H40000000
+    Minimize = &H20000000
+    Visible = &H10000000
+    Disabled = &H8000000
+    ClipSiblings = &H4000000
+    ClipChildren = &H2000000
+    Maximize = &H1000000
+    Caption = Border Or DlgFrame
+    Border = &H800000
+    DlgFrame = &H400000
+    VScroll = &H200000
+    HScroll = &H100000
+    SysMenu = &H80000
+    ThickFrame = &H40000
+    Group = &H20000
+    TabStop = &H10000
+    MinimizeBox = &H20000
+    MaximizeBox = &H10000
+    Tiled = Overlapped
+    Iconic = Minimize
+    SizeBox = ThickFrame
+    TileWindow = OverlappedWindow
+    OverlappedWindow = (Overlapped Or
+                        Caption Or
+                        SysMenu Or
+                        ThickFrame Or
+                        MinimizeBox Or
+                        MaximizeBox)
+    PopupWindow = (Popup Or
+                   Border Or
+                   SysMenu)
+    ChildWindow = Child
+End Enum
+
+<Flags>
+Public Enum ExtendedWindowStyle
+    ' EX
+    DlgModalFrame = &H1
+    NoParentNotify = &H4
+    TopMost = &H8
+    AcceptFiles = &H10
+    Transparent = &H20
+    ' Windows NT 4.0
+    MdiChild = &H40
+    ToolWindow = &H80
+    WindowEdge = &H100
+    ClientEdge = &H200
+    ContextHelp = &H400
+    Right = &H1000
+    Left = &H0
+    RtlReading = &H2000
+    LtrReading = &H0
+    LeftScrollBar = &H4000
+    RightScrollBar = &H0
+    ControlParent = &H10000
+    StaticEdge = &H20000
+    AppWindow = &H40000
+    OverlappedWindow = (WindowEdge Or ClientEdge)
+    PaletteWindow = (WindowEdge Or ToolWindow Or TopMost)
+    ' Windows 2000
+    Layered = &H80000
+    NoInheritLayout = &H100000
+    LayoutRtl = &H400000
+    NoActive = &H8000000
+    ' Windows XP
+    Composited = &H2000000
+    ' Windows 8
+    NoRedirectionBitmap = &H200000
+End Enum
