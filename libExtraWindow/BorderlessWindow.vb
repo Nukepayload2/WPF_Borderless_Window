@@ -54,12 +54,16 @@ Namespace Global.Nukepayload2.UI.Xaml
             Select Case msg
                 Case WM_NCHITTEST
                     If WindowState = WindowState.Maximized Then Return IntPtr.Zero
+                    Dim rawPoint As Integer = lParam.ToInt32()
+                    Dim pointLowPart As Integer = CShort(rawPoint And &HFFFF)
+                    Dim pointHighPart As Integer = CShort(rawPoint >> 16)
+
                     If enableLegacyPointScale Then
-                        mousePoint.X = (lParam.ToInt32() And &HFFFF) * 96 / SystemDPI.X
-                        mousePoint.Y = (lParam.ToInt32() >> 16) * 96 / SystemDPI.Y
+                        mousePoint.X = pointLowPart * 96 / SystemDPI.X
+                        mousePoint.Y = pointHighPart * 96 / SystemDPI.Y
                     Else
-                        mousePoint.X = (lParam.ToInt32() And &HFFFF)
-                        mousePoint.Y = (lParam.ToInt32() >> 16)
+                        mousePoint.X = pointLowPart
+                        mousePoint.Y = pointHighPart
                     End If
                     ' 左上  
                     If mousePoint.Y - Top <= AngleWidth AndAlso mousePoint.X - Left <= AngleWidth Then
