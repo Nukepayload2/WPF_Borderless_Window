@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
