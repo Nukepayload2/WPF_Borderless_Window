@@ -28,7 +28,7 @@
         </Grid>
         <Border x:Name="ClientArea" Grid.Row="1">
             <StackPanel Margin="8">
-                <local:ToggleSwitch x:Name="ChkBlured" IsEnabled="False" Content="Blur Window Effect"/>
+                <local:ToggleSwitch x:Name="ChkBlured" Content="Blur Window Effect"/>
                 <local:ToggleSwitch x:Name="ChkDpiAware" IsEnabled="False" Content="Per-Monitor DPI Awareness"/>
             </StackPanel>
         </Border>

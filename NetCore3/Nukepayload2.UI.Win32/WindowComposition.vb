@@ -45,9 +45,6 @@ Public Class WindowComposition7
         If Not IsCompositionEnabled Then
             Return False
         End If
-        If Not enable Then
-            Return False
-        End If
 
         Dim mainWindowPtr As IntPtr = New WindowInteropHelper(window).Handle
 
@@ -72,7 +69,9 @@ Public Class WindowComposition7
         If ExtendFrameIntoClientArea Then
             Return 0 = DwmExtendFrameIntoClientArea(mainWindowPtr, margins)
         Else
-            Return 0 = DwmEnableBlurBehindWindow(mainWindowPtr, DwmBlurBehind.Create)
+            Return 0 = DwmEnableBlurBehindWindow(
+                mainWindowPtr,
+                DwmBlurBehind.Create(enable:=Convert.ToInt32(enable)))
         End If
         Return True
     End Function

@@ -35,4 +35,13 @@ Class MainWindow
             ChkDpiAware.IsChecked = True
         End If
     End Sub
+
+    Private Sub ChkBlured_Click(sender As Object, e As RoutedEventArgs) Handles ChkBlured.Click
+        Dim windowCompositionFactory As New WindowCompositionFactory
+        Dim composition = windowCompositionFactory.TryCreateForCurrentView
+        Dim blur = ChkBlured.IsChecked.GetValueOrDefault
+        If composition?.TrySetBlur(Me, blur) Then
+
+        End If
+    End Sub
 End Class
