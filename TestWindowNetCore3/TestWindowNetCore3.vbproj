@@ -21,6 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nukepayload2.UI.WPFBorderlessWindow" Version="1.2.0" />
+    <PackageReference Include="Nukepayload2.UI.WPFBorderlessWindow" Version="1.2.1" />
   </ItemGroup>
 </Project>

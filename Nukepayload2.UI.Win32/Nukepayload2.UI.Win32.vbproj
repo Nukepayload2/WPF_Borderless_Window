@@ -4,10 +4,11 @@
     <RootNamespace>Nukepayload2.UI.Win32</RootNamespace>
     <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
     <UseWpf>true</UseWpf>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <PackageId>Nukepayload2.UI.WPFBorderlessWindow</PackageId>
     <Authors>Nukepayload2</Authors>
     <Product>Nukepayload2.UI.WPFBorderlessWindow</Product>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Nukepayload2/WPF_Borderless_Window</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Nukepayload2/WPF_Borderless_Window.git</RepositoryUrl>
