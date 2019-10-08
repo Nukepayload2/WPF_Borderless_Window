@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <RootNamespace>Nukepayload2.UI.Win32</RootNamespace>
+    <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
+    <UseWpf>true</UseWpf>
+    <Version>1.2.0</Version>
+    <PackageId>Nukepayload2.UI.WPFBorderlessWindow</PackageId>
+    <Authors>Nukepayload2</Authors>
+    <Product>Nukepayload2.UI.WPFBorderlessWindow</Product>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Nukepayload2/WPF_Borderless_Window</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Nukepayload2/WPF_Borderless_Window.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>WPF Borderless Window Acrylic Aero Glass netcoreapp3</PackageTags>
+    <PackageReleaseNotes>Added .NET Core 3.0 support</PackageReleaseNotes>
+    <Description>Provides a borderless, acrylic background and Per-Monitor DPI aware WPF Window class. If acrylic is not available, fallback to Aero Glass automatically.
+See the project repo for demos.</Description>
+    <Copyright>Copyright 2014-2019 Nukepayload2</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="segmdl2.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Windows" />
+    <Import Include="System.Windows.Media" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="segmdl2.ttf" />
+  </ItemGroup>
+</Project>

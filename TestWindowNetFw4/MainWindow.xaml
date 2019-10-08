@@ -23,12 +23,12 @@
         <Grid x:Name="TitleBar">
             <Rectangle x:Name="TitleBarDragElement" Fill="#01FFFFFF"/>
             <TextBlock Margin="8" IsHitTestVisible="False">Demo - BorderlessWindow</TextBlock>
-            <Button x:Name="BtnAbout" HorizontalAlignment="Right" Background="#3F7F007F" BorderThickness="0" Margin="0,0,48,0" VerticalAlignment="Top" Padding="18,4">Prerelease</Button>
+            <Button x:Name="BtnAbout" HorizontalAlignment="Right" Background="#3F7F007F" BorderThickness="0" Margin="0,0,48,0" VerticalAlignment="Top" Padding="18,4">About</Button>
             <Button Click="BtnClose_Click" Style="{StaticResource CloseButtonStyle}"/>
         </Grid>
         <Border x:Name="ClientArea" Grid.Row="1">
             <StackPanel Margin="8">
-                <local:ToggleSwitch x:Name="ChkBlured" IsEnabled="False" Content="Blur Window Effect"/>
+                <local:ToggleSwitch x:Name="ChkBlured" Content="Blur Window Effect"/>
                 <local:ToggleSwitch x:Name="ChkDpiAware" IsEnabled="False" Content="Per-Monitor DPI Awareness"/>
             </StackPanel>
         </Border>

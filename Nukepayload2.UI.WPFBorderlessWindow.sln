@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "libExtraWindow", "libExtraWindow\libExtraWindow.vbproj", "{643A914E-EFA5-45A9-A632-B0546A2D5E71}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TestWindowNetCore3", "TestWindowNetCore3\TestWindowNetCore3.vbproj", "{5E6BC867-70F7-4AC9-9E05-889EA7D1FFD6}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestWindow", "TestWindow\TestWindow.vbproj", "{C38F6B50-38AE-49C2-84C4-51C24A62D5AE}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Nukepayload2.UI.Win32", "Nukepayload2.UI.Win32\Nukepayload2.UI.Win32.vbproj", "{10A0CB4E-A449-4E64-9EA2-283FEED83602}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestWindowNet461", "TestWindowNetFw4\TestWindowNet461.vbproj", "{C38F6B50-38AE-49C2-84C4-51C24A62D5AE}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExperimentalFeatureTests", "ExperimentalFeatureTests\ExperimentalFeatureTests.vbproj", "{838B0D96-BF7A-45B9-B929-F19FE6820B35}"
 EndProject
@@ -15,10 +17,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{643A914E-EFA5-45A9-A632-B0546A2D5E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{643A914E-EFA5-45A9-A632-B0546A2D5E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{643A914E-EFA5-45A9-A632-B0546A2D5E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{643A914E-EFA5-45A9-A632-B0546A2D5E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E6BC867-70F7-4AC9-9E05-889EA7D1FFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E6BC867-70F7-4AC9-9E05-889EA7D1FFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E6BC867-70F7-4AC9-9E05-889EA7D1FFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E6BC867-70F7-4AC9-9E05-889EA7D1FFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A0CB4E-A449-4E64-9EA2-283FEED83602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A0CB4E-A449-4E64-9EA2-283FEED83602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A0CB4E-A449-4E64-9EA2-283FEED83602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A0CB4E-A449-4E64-9EA2-283FEED83602}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C38F6B50-38AE-49C2-84C4-51C24A62D5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C38F6B50-38AE-49C2-84C4-51C24A62D5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38F6B50-38AE-49C2-84C4-51C24A62D5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +38,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A5B2FB97-FA29-4D2B-AA84-E8BC618C07E1}
+		SolutionGuid = {83A2F6BE-7FD4-47BD-A0A3-B3E56DC802BA}
 	EndGlobalSection
 EndGlobal

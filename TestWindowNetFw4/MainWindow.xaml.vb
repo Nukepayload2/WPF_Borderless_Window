@@ -1,4 +1,5 @@
-﻿Imports Nukepayload2.UI.Win32
+﻿Imports System.Reflection
+Imports Nukepayload2.UI.Win32
 
 <Assembly: DisableDpiAwareness>
 
@@ -8,7 +9,8 @@ Class MainWindow
     End Sub
 
     Private Sub BtnAbout_Click(sender As Object, e As RoutedEventArgs) Handles BtnAbout.Click
-        MsgBox("Version: " + My.Application.Info.Version.ToString, MsgBoxStyle.Information)
+        Dim version As String = GetType(Win32ApiInformation).Assembly.GetCustomAttribute(Of AssemblyFileVersionAttribute)?.Version
+        MsgBox("Version: " & version, MsgBoxStyle.Information)
     End Sub
 
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
@@ -31,6 +33,15 @@ Class MainWindow
             ' Enable DPI awareness
             DpiAwareness = ProcessDpiAwareness.PerMonitorDpiAware
             ChkDpiAware.IsChecked = True
+        End If
+    End Sub
+
+    Private Sub ChkBlured_Click(sender As Object, e As RoutedEventArgs) Handles ChkBlured.Click
+        Dim windowCompositionFactory As New WindowCompositionFactory
+        Dim composition = windowCompositionFactory.TryCreateForCurrentView
+        Dim blur = ChkBlured.IsChecked.GetValueOrDefault
+        If composition?.TrySetBlur(Me, blur) Then
+
         End If
     End Sub
 End Class
