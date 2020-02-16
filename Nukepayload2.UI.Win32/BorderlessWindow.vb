@@ -112,17 +112,20 @@ Namespace Global.Nukepayload2.UI.Xaml
                     Dim dpi = newDpi
                     Dim newRect As RECT
                     newRect = Marshal.PtrToStructure(lParam, GetType(RECT))
+
+                    Dim wpfWidth = ActualWidth
+                    Dim wpfHeight = ActualHeight
+
                     Dim width = newRect.Right - newRect.Left
                     Dim height = newRect.Bottom - newRect.Top
 
                     If IsNet461CompatibleMode Then
                         SetScaleTransform(dpi)
+                        SetWindowPos(hwnd, 0, newRect.Left, newRect.Top, width,
+                                 height, SWP_NOZORDER Or SWP_NOOWNERZORDER Or SWP_NOACTIVATE)
                     Else
                         _SystemDPI = New Vector(newDpi, newDpi)
                     End If
-
-                    SetWindowPos(hwnd, 0, newRect.Left, newRect.Top, width,
-                                 height, SWP_NOZORDER Or SWP_NOOWNERZORDER Or SWP_NOACTIVATE)
             End Select
             Return IntPtr.Zero
         End Function
@@ -214,16 +217,25 @@ Namespace Global.Nukepayload2.UI.Xaml
 
         Private Sub NotifyWpfDpiChanged(hWnd As IntPtr, dpi As Integer)
             Dispatcher.BeginInvoke(
-                Sub()
-                    Dim newRect As New RECT With {
-                        .Left = Left,
-                        .Top = Top,
-                        .Right = Left + Width,
-                        .Bottom = Top + Height
-                    }
-                    Dim dpiNative As New IntPtr(dpi Or (dpi << 16))
-                    SendMessage(hWnd, WM_DPICHANGED, dpiNative, newRect)
-                End Sub)
+            Sub()
+                Dim newRect As New RECT With {
+                    .Left = Left,
+                    .Top = Top,
+                    .Right = Left + Width,
+                    .Bottom = Top + Height
+                }
+                Dim dpiNative As New IntPtr(dpi Or (dpi << 16))
+                SendMessage(hWnd, WM_DPICHANGED, dpiNative, newRect)
+                NotifyWpfSizing()
+            End Sub)
+        End Sub
+
+        Private Sub NotifyWpfSizing()
+            Dispatcher.BeginInvoke(
+            Sub()
+                Top -= 1
+                Top += 1
+            End Sub)
         End Sub
     End Class
 
