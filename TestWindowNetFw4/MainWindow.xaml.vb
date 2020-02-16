@@ -29,6 +29,7 @@ Class MainWindow
                 ChkBlured.IsChecked = True
             End If
         End If
+        IsNet461CompatibleMode = True
         If Win32ApiInformation.IsProcessDpiAwarenessApiPresent Then
             ' Enable DPI awareness
             DpiAwareness = ProcessDpiAwareness.PerMonitorDpiAware

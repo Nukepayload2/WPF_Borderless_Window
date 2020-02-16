@@ -1,4 +1,6 @@
-﻿Friend Module Win32APIConstants
+﻿Imports System.Runtime.InteropServices
+
+Friend Module Win32APIConstants
     Friend Const LOGPIXELSX = 88
     Friend Const LOGPIXELSY = 90
     Friend Const MONITOR_DEFAULTTONEAREST = 2
@@ -28,6 +30,9 @@ Friend Module NativeMethods
     Declare Unicode Function LoadLibrary Lib "Kernel32.dll" Alias "LoadLibraryW" (fileName As String) As IntPtr
     Declare Function GetProcAddress Lib "Kernel32.dll" (hModule As IntPtr, procName As String) As IntPtr
 
+    Declare Unicode Function SendMessage Lib "user32" Alias "SendMessageW" (
+        hWnd As IntPtr, Msg As Integer, wParam As IntPtr,
+        ByRef lParam As RECT) As IntPtr
 End Module
 
 Friend Enum AccentState
@@ -35,6 +40,7 @@ Friend Enum AccentState
     EnableGradient
     EnableTransparentGradient
     EnableBlurBehind
+    EnableAcrylicBehind
     Invalid
 End Enum
 

@@ -29,6 +29,11 @@ See the project repo for demos.</Description>
     <Import Include="System.Windows.Media" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <Reference Include="mscorlib" />
+    <Reference Include="Microsoft.VisualBasic" />
+  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="segmdl2.ttf" />
   </ItemGroup>

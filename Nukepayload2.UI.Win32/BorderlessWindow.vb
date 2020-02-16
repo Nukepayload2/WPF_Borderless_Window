@@ -1,5 +1,5 @@
 ﻿Option Strict Off
-' 此文件使用 GPLv3 许可协议。协议内容：https://github.com/Nukepayload2/WPF_Borderless_Window/blob/master/libExtraWindow/License.txt
+' 此文件使用 LGPLv3 许可协议。协议内容：https://github.com/Nukepayload2/WPF_Borderless_Window/blob/master/libExtraWindow/License.txt
 ' 额外权限授权申请方式：在百度贴吧, GitHub, 新浪微博 @Nukepayload2 或者发邮件到 1939357182@qq.com
 
 Imports System.Runtime.InteropServices
@@ -8,18 +8,15 @@ Imports Nukepayload2.UI.Win32
 
 Namespace Global.Nukepayload2.UI.Xaml
 
-    ''' <summary>
-    ''' 无默认样式边框窗体
-    ''' </summary>
     Public Class BorderlessWindow
         Inherits Window
 
         ''' <summary>
-        ''' 为非 Windows Runtime 环境提供 DisplayInformation.LogicalDpi 数据。
+        ''' Ported from WinRT API: DisplayInformation.LogicalDpi
         ''' </summary>
         Public ReadOnly Property SystemDPI As Vector
 
-        ''' <summary> 窗体角宽，用于调整大小 </summary>
+        ''' <summary>Corner size for resizing</summary>
         Public Property AngleWidth As Integer
             Get
                 Return GetValue(AngleWidthProperty)
@@ -33,7 +30,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                                GetType(Integer), GetType(BorderlessWindow),
                                New PropertyMetadata(8))
 
-        ''' <summary>框宽</summary>
+        ''' <summary>Border width for resizing</summary>
         Public Property ResizeThickness As Thickness
             Get
                 Return GetValue(ResizeThicknessProperty)
@@ -47,9 +44,10 @@ Namespace Global.Nukepayload2.UI.Xaml
                                GetType(Thickness), GetType(BorderlessWindow),
                                New PropertyMetadata(New Thickness(2)))
 
+        Const WM_DPICHANGED = &H2E0
+
         Protected Overridable Function WndProc(hwnd As IntPtr, msg As Integer, wParam As IntPtr, lParam As IntPtr, ByRef handled As Boolean) As IntPtr
             Const WM_NCHITTEST As Integer = &H84
-            Const WM_DPICHANGED = &H2E0
             Dim mousePoint As New Point()
             Select Case msg
                 Case WM_NCHITTEST
@@ -58,13 +56,17 @@ Namespace Global.Nukepayload2.UI.Xaml
                     Dim pointLowPart As Integer = CShort(rawPoint And &HFFFF)
                     Dim pointHighPart As Integer = CShort(rawPoint >> 16)
 
-                    If enableLegacyPointScale Then
+                    If enableLegacyPointScale OrElse
+                        DpiAwarenessIsUnset() OrElse
+                        Not IsNet461CompatibleMode Then
+
                         mousePoint.X = pointLowPart * 96 / SystemDPI.X
                         mousePoint.Y = pointHighPart * 96 / SystemDPI.Y
                     Else
                         mousePoint.X = pointLowPart
                         mousePoint.Y = pointHighPart
                     End If
+
                     ' 左上  
                     If mousePoint.Y - Top <= AngleWidth AndAlso mousePoint.X - Left <= AngleWidth Then
                         handled = True
@@ -101,13 +103,26 @@ Namespace Global.Nukepayload2.UI.Xaml
                         handled = False
                     End If
                 Case WM_DPICHANGED
+                    If DpiAwarenessIsUnset() Then
+                        ' Let the .NET Framework to handle this case.
+                        Return IntPtr.Zero
+                    End If
+
                     Dim newDpi As Integer = wParam.ToInt32 And &HFFFF
                     Dim dpi = newDpi
                     Dim newRect As RECT
                     newRect = Marshal.PtrToStructure(lParam, GetType(RECT))
-                    SetScaleTransform(dpi)
-                    SetWindowPos(hwnd, 0, newRect.Left, newRect.Top, newRect.Right - newRect.Left,
-                                 newRect.Bottom - newRect.Top, SWP_NOZORDER Or SWP_NOOWNERZORDER Or SWP_NOACTIVATE)
+                    Dim width = newRect.Right - newRect.Left
+                    Dim height = newRect.Bottom - newRect.Top
+
+                    If IsNet461CompatibleMode Then
+                        SetScaleTransform(dpi)
+                    Else
+                        _SystemDPI = New Vector(newDpi, newDpi)
+                    End If
+
+                    SetWindowPos(hwnd, 0, newRect.Left, newRect.Top, width,
+                                 height, SWP_NOZORDER Or SWP_NOOWNERZORDER Or SWP_NOACTIVATE)
             End Select
             Return IntPtr.Zero
         End Function
@@ -122,6 +137,16 @@ Namespace Global.Nukepayload2.UI.Xaml
                 End If
                 transform.ScaleX = dpi / 96
                 transform.ScaleY = dpi / 96
+            End If
+        End Sub
+
+        Private Sub RemoveScaleTransform()
+            Dim rootElement = TryCast(Content, FrameworkElement)
+            If rootElement IsNot Nothing Then
+                Dim transform = TryCast(rootElement.LayoutTransform, ScaleTransform)
+                If transform IsNot Nothing Then
+                    rootElement.LayoutTransform = Nothing
+                End If
             End If
         End Sub
 
@@ -155,16 +180,29 @@ Namespace Global.Nukepayload2.UI.Xaml
         Dim perMonDPIHelper As New PerMonitorDpiAwareHelper
         Dim enableLegacyPointScale As Boolean
 
+        Private Function DpiAwarenessIsUnset() As Boolean
+            Dim lcValue = ReadLocalValue(DpiAwarenessProperty)
+            Return lcValue Is DependencyProperty.UnsetValue
+        End Function
+
+        Public Property IsNet461CompatibleMode As Boolean
+
         Private Sub NoBorderWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
             Dim hWnd = New WindowInteropHelper(Me).Handle
             SetWindowLong(hWnd, -16, &H16030000)
             SetWindowLong(hWnd, -20, &H40000)
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             If dpi IsNot Nothing Then
-                SetScaleTransform(dpi.Value.X)
                 _SystemDPI = dpi.Value
-                Width *= SystemDPI.X / 96
-                Height *= SystemDPI.Y / 96
+                If Not DpiAwarenessIsUnset() Then
+                    If IsNet461CompatibleMode Then
+                        SetScaleTransform(dpi.Value.X)
+                    Else
+                        NotifyWpfDpiChanged(hWnd, dpi.Value.X)
+                    End If
+                    Width *= SystemDPI.X / 96
+                    Height *= SystemDPI.Y / 96
+                End If
             Else
                 Dim dc = GetDC(IntPtr.Zero)
                 _SystemDPI.X = GetDeviceCaps(dc, LOGPIXELSX)
@@ -172,6 +210,20 @@ Namespace Global.Nukepayload2.UI.Xaml
                 ReleaseDC(IntPtr.Zero, dc)
             End If
             enableLegacyPointScale = Not Win32ApiInformation.IsWindowAcrylicApiPresent
+        End Sub
+
+        Private Sub NotifyWpfDpiChanged(hWnd As IntPtr, dpi As Integer)
+            Dispatcher.BeginInvoke(
+                Sub()
+                    Dim newRect As New RECT With {
+                        .Left = Left,
+                        .Top = Top,
+                        .Right = Left + Width,
+                        .Bottom = Top + Height
+                    }
+                    Dim dpiNative As New IntPtr(dpi Or (dpi << 16))
+                    SendMessage(hWnd, WM_DPICHANGED, dpiNative, newRect)
+                End Sub)
         End Sub
     End Class
 
