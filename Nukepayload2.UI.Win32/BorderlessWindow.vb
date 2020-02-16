@@ -125,6 +125,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                                  height, SWP_NOZORDER Or SWP_NOOWNERZORDER Or SWP_NOACTIVATE)
                     Else
                         _SystemDPI = New Vector(newDpi, newDpi)
+                        NotifyWpfSizing()
                     End If
             End Select
             Return IntPtr.Zero
