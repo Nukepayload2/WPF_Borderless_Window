@@ -187,6 +187,11 @@ Namespace Global.Nukepayload2.UI.Xaml
             Return DpiAwareness <> ProcessDpiAwareness.PerMonitorDpiAware
         End Function
 
+        Private Function DpiAwarenessIsUnset() As Boolean
+            Dim lc = ReadLocalValue(DpiAwarenessProperty)
+            Return lc Is DependencyProperty.UnsetValue
+        End Function
+
         Public Property IsNet461CompatibleMode As Boolean
 
         Private Sub NoBorderWindow_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
@@ -196,7 +201,7 @@ Namespace Global.Nukepayload2.UI.Xaml
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             If dpi IsNot Nothing Then
                 _SystemDPI = dpi.Value
-                If Not DpiAwarenessIsNotPM() Then
+                If Not DpiAwarenessIsUnset() Then
                     If IsNet461CompatibleMode Then
                         SetScaleTransform(dpi.Value.X)
                     Else
