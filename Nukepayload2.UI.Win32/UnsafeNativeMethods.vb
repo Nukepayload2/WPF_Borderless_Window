@@ -47,7 +47,7 @@ End Enum
 Friend Structure AccentPolicy
     Dim AccentState As AccentState
     Dim AccentFlags As Integer
-    Dim GradientColor As Integer
+    Dim GradientColor As UInteger
     Dim AnimationId As Integer
 End Structure
 

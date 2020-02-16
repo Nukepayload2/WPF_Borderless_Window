@@ -3,6 +3,7 @@ Imports System.Runtime.InteropServices
 Imports System.Windows.Interop
 
 Public Interface IWindowComposition
+    Function TrySetAcrylic(window As Window, enable As Boolean, color As Color) As Boolean
     Function TrySetBlur(window As Window, enable As Boolean) As Boolean
     Function IsBlurred(window As Window) As Boolean
 End Interface
@@ -82,6 +83,10 @@ Public Class WindowComposition7
         End If
         Return IsBlurEnabled
     End Function
+
+    Public Function TrySetAcrylic(window As Window, enable As Boolean, color As Color) As Boolean Implements IWindowComposition.TrySetAcrylic
+        Return False
+    End Function
 End Class
 
 Public Class WindowComposition10
@@ -129,5 +134,34 @@ Public Class WindowComposition10
         hGc.Free()
 
         Return accent.AccentState = AccentState.EnableBlurBehind
+    End Function
+
+    Public Function TrySetAcrylic(window As Window, enable As Boolean, color As Color) As Boolean Implements IWindowComposition.TrySetAcrylic
+        ' Starts from RS4
+        Dim windowHandle = New WindowInteropHelper(window).Handle
+        Dim isLayeredWindow = window.AllowsTransparency
+        Dim accent As New AccentPolicy With {
+            .AccentState = If(enable, AccentState.EnableAcrylicBehind,
+                                      If(isLayeredWindow, AccentState.EnableTransparentGradient,
+                                                          AccentState.EnableGradient)),
+            .GradientColor = ToUInt32(color),
+            .AccentFlags = 2
+        }
+
+        Dim hGc = GCHandle.Alloc(accent, GCHandleType.Pinned)
+        Try
+            Dim data As New WindowCompositionAttributeData With {
+                .Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                .SizeOfData = Marshal.SizeOf(accent),
+                .Data = hGc.AddrOfPinnedObject
+            }
+            Return SetWindowCompositionAttribute(windowHandle, data)
+        Finally
+            hGc.Free()
+        End Try
+    End Function
+
+    Private Function ToUInt32(color As Color) As UInteger
+        Return (CUInt(color.A) << 24) Or (CUInt(color.B) << 16) Or (CUInt(color.G) << 8) Or CUInt(color.R)
     End Function
 End Class
