@@ -4,7 +4,7 @@
     <RootNamespace>Nukepayload2.UI.Win32</RootNamespace>
     <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
     <UseWpf>true</UseWpf>
-    <Version>1.2.1</Version>
+    <Version>1.3.0</Version>
     <PackageId>Nukepayload2.UI.WPFBorderlessWindow</PackageId>
     <Authors>Nukepayload2</Authors>
     <Product>Nukepayload2.UI.WPFBorderlessWindow</Product>
@@ -14,10 +14,13 @@
     <RepositoryUrl>https://github.com/Nukepayload2/WPF_Borderless_Window.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>WPF Borderless Window Acrylic Aero Glass netcoreapp3</PackageTags>
-    <PackageReleaseNotes>Added .NET Core 3.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed a compatibility problem of .NET Core 3.0 and .NET Framework 4.6.2
+Fixed a bug when DpiAwareness is UnsetValue
+Added property "IsNet461CompatibleMode". See the .NET Framework 4.6.1 demo for usages.
+Added RS4 acrylic API</PackageReleaseNotes>
     <Description>Provides a borderless, acrylic background and Per-Monitor DPI aware WPF Window class. If acrylic is not available, fallback to Aero Glass automatically.
 See the project repo for demos.</Description>
-    <Copyright>Copyright 2014-2019 Nukepayload2</Copyright>
+    <Copyright>Copyright 2014-2020 Nukepayload2</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
