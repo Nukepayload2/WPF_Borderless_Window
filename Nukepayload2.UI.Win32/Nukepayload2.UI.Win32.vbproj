@@ -4,7 +4,7 @@
     <RootNamespace>Nukepayload2.UI.Win32</RootNamespace>
     <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
     <UseWpf>true</UseWpf>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <PackageId>Nukepayload2.UI.WPFBorderlessWindow</PackageId>
     <Authors>Nukepayload2</Authors>
     <Product>Nukepayload2.UI.WPFBorderlessWindow</Product>

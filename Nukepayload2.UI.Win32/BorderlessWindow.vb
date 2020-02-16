@@ -57,7 +57,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                     Dim pointHighPart As Integer = CShort(rawPoint >> 16)
 
                     If enableLegacyPointScale OrElse
-                        DpiAwarenessIsUnset() OrElse
+                        DpiAwarenessIsNotPM() OrElse
                         Not IsNet461CompatibleMode Then
 
                         mousePoint.X = pointLowPart * 96 / SystemDPI.X
@@ -103,7 +103,7 @@ Namespace Global.Nukepayload2.UI.Xaml
                         handled = False
                     End If
                 Case WM_DPICHANGED
-                    If DpiAwarenessIsUnset() Then
+                    If DpiAwarenessIsNotPM() Then
                         ' Let the .NET Framework to handle this case.
                         Return IntPtr.Zero
                     End If
@@ -183,9 +183,8 @@ Namespace Global.Nukepayload2.UI.Xaml
         Dim perMonDPIHelper As New PerMonitorDpiAwareHelper
         Dim enableLegacyPointScale As Boolean
 
-        Private Function DpiAwarenessIsUnset() As Boolean
-            Dim lcValue = ReadLocalValue(DpiAwarenessProperty)
-            Return lcValue Is DependencyProperty.UnsetValue
+        Private Function DpiAwarenessIsNotPM() As Boolean
+            Return DpiAwareness <> ProcessDpiAwareness.PerMonitorDpiAware
         End Function
 
         Public Property IsNet461CompatibleMode As Boolean
@@ -197,7 +196,7 @@ Namespace Global.Nukepayload2.UI.Xaml
             Dim dpi = perMonDPIHelper.GetWindowDpi(hWnd)
             If dpi IsNot Nothing Then
                 _SystemDPI = dpi.Value
-                If Not DpiAwarenessIsUnset() Then
+                If Not DpiAwarenessIsNotPM() Then
                     If IsNet461CompatibleMode Then
                         SetScaleTransform(dpi.Value.X)
                     Else
