@@ -1,8 +1,6 @@
 ﻿Imports System.Reflection
 Imports Nukepayload2.UI.Win32
 
-<Assembly: DisableDpiAwareness>
-
 Class MainWindow
     Private Sub TitleBarDragElement_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles TitleBarDragElement.PreviewMouseLeftButtonDown
         DragMove()
@@ -30,9 +28,8 @@ Class MainWindow
             End If
         End If
         If Win32ApiInformation.IsProcessDpiAwarenessApiPresent Then
-            ' Enable DPI awareness
-            DpiAwareness = ProcessDpiAwareness.PerMonitorDpiAware
-            ChkDpiAware.IsChecked = True
+            ' Check DPI awareness
+            ChkDpiAware.IsChecked = DpiAwareness = ProcessDpiAwareness.PerMonitorDpiAware
         End If
     End Sub
 
