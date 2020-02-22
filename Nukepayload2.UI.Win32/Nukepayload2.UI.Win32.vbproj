@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/Nukepayload2/WPF_Borderless_Window.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>WPF Borderless Window Acrylic Aero Glass netcoreapp3</PackageTags>
-    <PackageReleaseNotes>Added minimize button</PackageReleaseNotes>
+    <PackageReleaseNotes>Added minimize and maximize buttons. See the demo in the project repository for usage.</PackageReleaseNotes>
     <Description>Provides a borderless, acrylic background and Per-Monitor DPI aware WPF Window class. If acrylic is not available, fallback to Aero Glass automatically.
 See the project repo for demos.</Description>
     <Copyright>Copyright 2014-2020 Nukepayload2</Copyright>
