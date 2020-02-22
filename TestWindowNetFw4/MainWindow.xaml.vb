@@ -13,7 +13,7 @@ Class MainWindow
         MsgBox("Version: " & version, MsgBoxStyle.Information)
     End Sub
 
-    Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs) Handles BtnClose.Click
         Close()
     End Sub
 
@@ -43,6 +43,20 @@ Class MainWindow
         Dim blur = ChkBlured.IsChecked.GetValueOrDefault
         If composition?.TrySetBlur(Me, blur) Then
 
+        End If
+    End Sub
+
+    Private Sub BtnMinimize_Click(sender As Object, e As RoutedEventArgs) Handles BtnMinimize.Click
+        WindowState = WindowState.Minimized
+    End Sub
+
+    Private Sub BtnMaximize_Click(sender As Object, e As RoutedEventArgs) Handles BtnMaximize.Click
+        If WindowState = WindowState.Maximized Then
+            WindowState = WindowState.Normal
+            BtnMaximize.ToolTip = "Maximize"
+        Else
+            WindowState = WindowState.Maximized
+            BtnMaximize.ToolTip = "Restore"
         End If
     End Sub
 End Class

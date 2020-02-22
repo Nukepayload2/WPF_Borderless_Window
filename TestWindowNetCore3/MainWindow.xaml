@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWindowNetCore3" AllowsTransparency="True" WindowStyle="None"
-        MinWidth="250" MinHeight="250"
+        MinWidth="250" MinHeight="250" UseLayoutRounding="True"
         xmlns:ext="clr-namespace:Nukepayload2.UI.Xaml;assembly=Nukepayload2.UI.Win32"
         mc:Ignorable="d" BorderBrush="DodgerBlue" BorderThickness="1"
         Title="MainWindow" Height="350" Width="525">
@@ -23,8 +23,12 @@
         <Grid x:Name="TitleBar">
             <Rectangle x:Name="TitleBarDragElement" Fill="#01FFFFFF"/>
             <TextBlock Margin="8" IsHitTestVisible="False">Demo - BorderlessWindow</TextBlock>
-            <Button x:Name="BtnAbout" HorizontalAlignment="Right" Background="#3F7F007F" BorderThickness="0" Margin="0,0,48,0" VerticalAlignment="Top" Padding="18,4">About</Button>
-            <Button Click="BtnClose_Click" Style="{StaticResource CloseButtonStyle}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="BtnAbout" HorizontalAlignment="Right" Background="#3F7F007F" BorderThickness="0" Margin="0,0,8,0" VerticalAlignment="Top" Padding="18,4">About</Button>
+                <Button x:Name="BtnMinimize" Style="{StaticResource MinimizeButtonStyle}"/>
+                <Button x:Name="BtnMaximize" Style="{StaticResource MaximizeButtonStyle}"/>
+                <Button x:Name="BtnClose" Style="{StaticResource CloseButtonStyle}"/>
+            </StackPanel>
         </Grid>
         <Border x:Name="ClientArea" Grid.Row="1">
             <StackPanel Margin="8">

@@ -14,7 +14,6 @@
     <SolidColorBrush x:Key="Button.Static.Background" Color="#3FD3D3D3"/>
     
     <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -65,4 +64,143 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <SolidColorBrush x:Key="MinimizeButton.Static.Border" Color="#7F707070"/>
+    <SolidColorBrush x:Key="MinimizeButton.MouseOver.Background" Color="#FFe6e6e6"/>
+    <SolidColorBrush x:Key="MinimizeButton.MouseOver.Border" Color="#7F3C7FB1"/>
+    <SolidColorBrush x:Key="MinimizeButton.Pressed.Background" Color="#FFcccccc"/>
+    <SolidColorBrush x:Key="MinimizeButton.Pressed.Border" Color="#7F2C628B"/>
+    <SolidColorBrush x:Key="MinimizeButton.Disabled.Background" Color="#7FF4F4F4"/>
+    <SolidColorBrush x:Key="MinimizeButton.Disabled.Border" Color="#7FADB2B5"/>
+    <SolidColorBrush x:Key="MinimizeButton.Disabled.Foreground" Color="#7F838383"/>
+    <SolidColorBrush x:Key="MinimizeButton.Static.Background" Color="#3Ff8f9fb"/>
+
+    <Style x:Key="MinimizeButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MinimizeButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="18,11"/>
+        <Setter Property="ToolTip" Value="Minimize"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock VerticalAlignment="Center" 
+                               SnapsToDevicePixels="True"
+                               FontFamily="pack://application:,,,/Nukepayload2.UI.Win32;component/#Segoe MDL2 Assets"
+                               FontSize="10"
+                               Text="&#xE921;"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.Pressed.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.Disabled.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource MinimizeButton.Disabled.Foreground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:MaximizeFontIcon}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MaximizeFontIcon}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock x:Name="tblIcon" 
+                                   VerticalAlignment="Center" 
+                                   SnapsToDevicePixels="True"
+                                   FontFamily="pack://application:,,,/Nukepayload2.UI.Win32;component/#Segoe MDL2 Assets"
+                                   FontSize="10"
+                                   Text="&#xE922;"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter Property="TextBlock.Text" TargetName="tblIcon" Value="&#xE923;"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MaximizeButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MinimizeButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="18,11"/>
+        <Setter Property="ToolTip" Value="Maximize"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <local:MaximizeFontIcon WindowState="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState, FallbackValue=Normal, Mode=OneWay}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.Pressed.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource MinimizeButton.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MinimizeButton.Disabled.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource MinimizeButton.Disabled.Foreground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
