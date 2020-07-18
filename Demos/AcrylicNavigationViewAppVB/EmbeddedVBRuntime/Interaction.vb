@@ -2,9 +2,6 @@
 ''' Backport of Microsoft.VisualBasic.Interaction from .NET 5
 ''' </summary>
 Module Interaction
-    ''' <summary>
-    ''' Backport from .NET 5
-    ''' </summary>
     Function MsgBox(
             prompt As Object,
             Optional styles As MsgBoxStyle = vbOKOnly,
