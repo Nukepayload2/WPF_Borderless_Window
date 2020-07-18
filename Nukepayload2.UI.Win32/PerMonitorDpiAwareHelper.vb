@@ -42,4 +42,3 @@ Public Class PerMonitorDpiAwareHelper
     End Function
 
 End Class
-
